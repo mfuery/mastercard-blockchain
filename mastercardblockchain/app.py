@@ -33,69 +33,61 @@ from mastercardapicore import BaseObject
 from mastercardapicore import RequestMap
 from mastercardapicore import OperationConfig
 from mastercardapicore import OperationMetadata
-from resourceconfig import ResourceConfig
+from .resourceconfig import ResourceConfig
+
 
 class App(BaseObject):
-	"""
+    """
 
-	"""
+    """
 
-	__config = {
+    __config = {
 
-		"3de9977e-ee9d-4239-a27d-8d37e79accd9" : OperationConfig("/labs/proxy/chain/api/v1/network/app/{id}", "read", [], []),
+        "3de9977e-ee9d-4239-a27d-8d37e79accd9": OperationConfig("/labs/proxy/chain/api/v1/network/app/{id}", "read", [],
+                                                                []),
 
-		"b2b655f5-8553-4842-81ed-ea157dfe2b57" : OperationConfig("/labs/proxy/chain/api/v1/network/app/{id}", "update", [], []),
+        "b2b655f5-8553-4842-81ed-ea157dfe2b57": OperationConfig("/labs/proxy/chain/api/v1/network/app/{id}", "update",
+                                                                [], []),
 
-	}
+    }
 
-	def getOperationConfig(self,operationUUID):
-		if operationUUID not in self.__config:
-			raise Exception("Invalid operationUUID: "+operationUUID)
+    def getOperationConfig(self, operationUUID):
+        if operationUUID not in self.__config:
+            raise Exception("Invalid operationUUID: " + operationUUID)
 
-		return self.__config[operationUUID]
+        return self.__config[operationUUID]
 
-	def getOperationMetadata(self):
-		return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(), ResourceConfig.getInstance().getContext(), ResourceConfig.getInstance().getJsonNative())
+    def getOperationMetadata(self):
+        return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(),
+                                 ResourceConfig.getInstance().getContext(),
+                                 ResourceConfig.getInstance().getJsonNative())
 
+    @classmethod
+    def read(cls, id, criteria=None):
+        """
+        Returns objects of type App by id and optional criteria
+        @param str id
+        @param dict criteria
+        @return instance of App
+        @raise ApiException: raised an exception from the response status
+        """
+        mapObj = RequestMap()
+        if id:
+            mapObj.set("id", id)
 
+        if criteria:
+            if (isinstance(criteria, RequestMap)):
+                mapObj.setAll(criteria.getObject())
+            else:
+                mapObj.setAll(criteria)
 
+        return BaseObject.execute("3de9977e-ee9d-4239-a27d-8d37e79accd9", App(mapObj))
 
+    def update(self):
+        """
+        Updates an object of type App
 
-
-	@classmethod
-	def read(cls,id,criteria=None):
-		"""
-		Returns objects of type App by id and optional criteria
-		@param str id
-		@param dict criteria
-		@return instance of App
-		@raise ApiException: raised an exception from the response status
-		"""
-		mapObj =  RequestMap()
-		if id:
-			mapObj.set("id", id)
-
-		if criteria:
-			if (isinstance(criteria,RequestMap)):
-				mapObj.setAll(criteria.getObject())
-			else:
-				mapObj.setAll(criteria)
-
-		return BaseObject.execute("3de9977e-ee9d-4239-a27d-8d37e79accd9", App(mapObj))
-
-
-
-	def update(self):
-		"""
-		Updates an object of type App
-
-		@return App object representing the response.
-		@raise ApiException: raised an exception from the response status
-		"""
-		return BaseObject.execute("b2b655f5-8553-4842-81ed-ea157dfe2b57", self)
-
-
-
-
-
-
+        @return App object representing the response.
+        @raise ApiException: raised an exception from the response status
+        """
+        return BaseObject.execute("b2b655f5-8553-4842-81ed-ea157dfe2b57", self)

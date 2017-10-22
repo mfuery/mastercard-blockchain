@@ -33,43 +33,39 @@ from mastercardapicore import BaseObject
 from mastercardapicore import RequestMap
 from mastercardapicore import OperationConfig
 from mastercardapicore import OperationMetadata
-from resourceconfig import ResourceConfig
+from .resourceconfig import ResourceConfig
+
 
 class Encoding(BaseObject):
-	"""
-	
-	"""
+    """
 
-	__config = {
-		
-		"4a6c5efd-f877-41cb-985f-cb8796c39368" : OperationConfig("/labs/proxy/chain/api/v1/network/support/encoding", "create", [], []),
-		
-	}
+    """
 
-	def getOperationConfig(self,operationUUID):
-		if operationUUID not in self.__config:
-			raise Exception("Invalid operationUUID: "+operationUUID)
+    __config = {
 
-		return self.__config[operationUUID]
+        "4a6c5efd-f877-41cb-985f-cb8796c39368": OperationConfig("/labs/proxy/chain/api/v1/network/support/encoding",
+                                                                "create", [], []),
 
-	def getOperationMetadata(self):
-		return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(), ResourceConfig.getInstance().getContext(), ResourceConfig.getInstance().getJsonNative())
+    }
 
+    def getOperationConfig(self, operationUUID):
+        if operationUUID not in self.__config:
+            raise Exception("Invalid operationUUID: " + operationUUID)
 
-	@classmethod
-	def create(cls,mapObj):
-		"""
-		Creates object of type Encoding
+        return self.__config[operationUUID]
 
-		@param Dict mapObj, containing the required parameters to create a new object
-		@return Encoding of the response of created instance.
-		@raise ApiException: raised an exception from the response status
-		"""
-		return BaseObject.execute("4a6c5efd-f877-41cb-985f-cb8796c39368", Encoding(mapObj))
+    def getOperationMetadata(self):
+        return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(),
+                                 ResourceConfig.getInstance().getContext(),
+                                 ResourceConfig.getInstance().getJsonNative())
 
+    @classmethod
+    def create(cls, mapObj):
+        """
+        Creates object of type Encoding
 
-
-
-
-
-
+        @param Dict mapObj, containing the required parameters to create a new object
+        @return Encoding of the response of created instance.
+        @raise ApiException: raised an exception from the response status
+        """
+        return BaseObject.execute("4a6c5efd-f877-41cb-985f-cb8796c39368", Encoding(mapObj))

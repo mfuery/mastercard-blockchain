@@ -33,75 +33,67 @@ from mastercardapicore import BaseObject
 from mastercardapicore import RequestMap
 from mastercardapicore import OperationConfig
 from mastercardapicore import OperationMetadata
-from resourceconfig import ResourceConfig
+from .resourceconfig import ResourceConfig
+
 
 class Block(BaseObject):
-	"""
-	
-	"""
+    """
 
-	__config = {
-		
-		"71bb7550-8f4d-40d6-9ec8-42c98f704d8d" : OperationConfig("/labs/proxy/chain/api/v1/network/block", "list", [], ["from","to"]),
-		
-		"e2929737-7620-429a-bf0d-bd3a6483a4a5" : OperationConfig("/labs/proxy/chain/api/v1/network/block/{id}", "read", [], []),
-		
-	}
+    """
 
-	def getOperationConfig(self,operationUUID):
-		if operationUUID not in self.__config:
-			raise Exception("Invalid operationUUID: "+operationUUID)
+    __config = {
 
-		return self.__config[operationUUID]
+        "71bb7550-8f4d-40d6-9ec8-42c98f704d8d": OperationConfig("/labs/proxy/chain/api/v1/network/block", "list", [],
+                                                                ["from", "to"]),
 
-	def getOperationMetadata(self):
-		return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(), ResourceConfig.getInstance().getContext(), ResourceConfig.getInstance().getJsonNative())
+        "e2929737-7620-429a-bf0d-bd3a6483a4a5": OperationConfig("/labs/proxy/chain/api/v1/network/block/{id}", "read",
+                                                                [], []),
 
+    }
 
+    def getOperationConfig(self, operationUUID):
+        if operationUUID not in self.__config:
+            raise Exception("Invalid operationUUID: " + operationUUID)
 
+        return self.__config[operationUUID]
 
-	@classmethod
-	def listByCriteria(cls,criteria=None):
-		"""
-		List objects of type Block
+    def getOperationMetadata(self):
+        return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(),
+                                 ResourceConfig.getInstance().getContext(),
+                                 ResourceConfig.getInstance().getJsonNative())
 
-		@param Dict criteria
-		@return Array of Block object matching the criteria.
-		@raise ApiException: raised an exception from the response status
-		"""
+    @classmethod
+    def listByCriteria(cls, criteria=None):
+        """
+        List objects of type Block
 
-		if not criteria :
-			return BaseObject.execute("71bb7550-8f4d-40d6-9ec8-42c98f704d8d", Block())
-		else:
-			return BaseObject.execute("71bb7550-8f4d-40d6-9ec8-42c98f704d8d", Block(criteria))
+        @param Dict criteria
+        @return Array of Block object matching the criteria.
+        @raise ApiException: raised an exception from the response status
+        """
 
+        if not criteria:
+            return BaseObject.execute("71bb7550-8f4d-40d6-9ec8-42c98f704d8d", Block())
+        else:
+            return BaseObject.execute("71bb7550-8f4d-40d6-9ec8-42c98f704d8d", Block(criteria))
 
+    @classmethod
+    def read(cls, id, criteria=None):
+        """
+        Returns objects of type Block by id and optional criteria
+        @param str id
+        @param dict criteria
+        @return instance of Block
+        @raise ApiException: raised an exception from the response status
+        """
+        mapObj = RequestMap()
+        if id:
+            mapObj.set("id", id)
 
+        if criteria:
+            if (isinstance(criteria, RequestMap)):
+                mapObj.setAll(criteria.getObject())
+            else:
+                mapObj.setAll(criteria)
 
-
-
-
-
-	@classmethod
-	def read(cls,id,criteria=None):
-		"""
-		Returns objects of type Block by id and optional criteria
-		@param str id
-		@param dict criteria
-		@return instance of Block
-		@raise ApiException: raised an exception from the response status
-		"""
-		mapObj =  RequestMap()
-		if id:
-			mapObj.set("id", id)
-
-		if criteria:
-			if (isinstance(criteria,RequestMap)):
-				mapObj.setAll(criteria.getObject())
-			else:
-				mapObj.setAll(criteria)
-
-		return BaseObject.execute("e2929737-7620-429a-bf0d-bd3a6483a4a5", Block(mapObj))
-
-
-
+        return BaseObject.execute("e2929737-7620-429a-bf0d-bd3a6483a4a5", Block(mapObj))

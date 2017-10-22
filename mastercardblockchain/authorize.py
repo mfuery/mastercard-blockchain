@@ -33,43 +33,39 @@ from mastercardapicore import BaseObject
 from mastercardapicore import RequestMap
 from mastercardapicore import OperationConfig
 from mastercardapicore import OperationMetadata
-from resourceconfig import ResourceConfig
+from .resourceconfig import ResourceConfig
+
 
 class Authorize(BaseObject):
-	"""
-	
-	"""
+    """
 
-	__config = {
-		
-		"b83eeed4-1e3a-406e-bae8-5eaeb84496c9" : OperationConfig("/labs/proxy/chain/api/v1/network/authorize", "create", [], []),
-		
-	}
+    """
 
-	def getOperationConfig(self,operationUUID):
-		if operationUUID not in self.__config:
-			raise Exception("Invalid operationUUID: "+operationUUID)
+    __config = {
 
-		return self.__config[operationUUID]
+        "b83eeed4-1e3a-406e-bae8-5eaeb84496c9": OperationConfig("/labs/proxy/chain/api/v1/network/authorize", "create",
+                                                                [], []),
 
-	def getOperationMetadata(self):
-		return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(), ResourceConfig.getInstance().getContext(), ResourceConfig.getInstance().getJsonNative())
+    }
 
+    def getOperationConfig(self, operationUUID):
+        if operationUUID not in self.__config:
+            raise Exception("Invalid operationUUID: " + operationUUID)
 
-	@classmethod
-	def create(cls,mapObj):
-		"""
-		Creates object of type Authorize
+        return self.__config[operationUUID]
 
-		@param Dict mapObj, containing the required parameters to create a new object
-		@return Authorize of the response of created instance.
-		@raise ApiException: raised an exception from the response status
-		"""
-		return BaseObject.execute("b83eeed4-1e3a-406e-bae8-5eaeb84496c9", Authorize(mapObj))
+    def getOperationMetadata(self):
+        return OperationMetadata(ResourceConfig.getInstance().getVersion(), ResourceConfig.getInstance().getHost(),
+                                 ResourceConfig.getInstance().getContext(),
+                                 ResourceConfig.getInstance().getJsonNative())
 
+    @classmethod
+    def create(cls, mapObj):
+        """
+        Creates object of type Authorize
 
-
-
-
-
-
+        @param Dict mapObj, containing the required parameters to create a new object
+        @return Authorize of the response of created instance.
+        @raise ApiException: raised an exception from the response status
+        """
+        return BaseObject.execute("b83eeed4-1e3a-406e-bae8-5eaeb84496c9", Authorize(mapObj))

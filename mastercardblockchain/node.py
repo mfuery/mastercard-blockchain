@@ -33,7 +33,7 @@ from mastercardapicore import BaseObject
 from mastercardapicore import RequestMap
 from mastercardapicore import OperationConfig
 from mastercardapicore import OperationMetadata
-from resourceconfig import ResourceConfig
+from .resourceconfig import ResourceConfig
 
 class Node(BaseObject):
 	"""
